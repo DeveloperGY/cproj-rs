@@ -148,6 +148,10 @@ impl CompileFiles {
 
         let mut link = process::Command::new(&self.config.borrow().cc);
 
+        for flg in &self.config.borrow().link_flags {
+            link.arg(flg);
+        }
+
         // link all objs
         for path in self.src_files.borrow().iter().filter(|path| {
             if let Some(ext) = path.extension() {
@@ -159,10 +163,6 @@ impl CompileFiles {
             }
         }) {
             link.arg(self.convert_to_obj_path(path));
-        }
-
-        for flg in &self.config.borrow().link_flags {
-            link.arg(flg);
         }
 
         if self.release_mode {
