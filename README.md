@@ -129,7 +129,7 @@ only really worth using if you don't have an internet connection.
 
 There are plans to make this command much better in the future.
 
-## Configuring a Project
+### Configuring a Project
 A Cproj project is marked by a file called `cproj.json`. The file looks like
 this by default.
 ```json
@@ -207,3 +207,14 @@ following lists the file extensions Cproj checks for each language.
 
 These file extensions were determined based on the
 [gcc manual](https://gcc.gnu.org/onlinedocs/gcc/Overall-Options.html)
+
+## Contributing
+Currently this is mainly my own side project and until I'm satisfied with my
+progress/effort I'd like to keep outside contributions to a minimum. That being
+said, submitting issues or forking the repo is perfectly fine and encouraged. My
+wish to measure my own progress as a developer should not impact other peoples'
+right to modify and improve a tool they use. I'm sorry for any inconvenience
+this may cause.
+
+Once the project is in a state where I'm happy with it I will update this
+section and will be willing merge outside contributions.
