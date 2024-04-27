@@ -2,19 +2,24 @@ use std::{cell::RefCell, collections::HashSet, fs, path, rc::Rc};
 
 use crate::{
     action::{Action, Result},
-    config::Lang,
+    config::{Config, Lang},
 };
 
 pub struct GenSrcPaths {
+    config: Rc<RefCell<Config>>,
     src_exts: Vec<String>,
     src_paths: Rc<RefCell<HashSet<path::PathBuf>>>,
     old_src_paths: Option<HashSet<path::PathBuf>>,
 }
 
 impl GenSrcPaths {
-    pub fn new(src_paths: Rc<RefCell<HashSet<path::PathBuf>>>, lang: Lang) -> Box<Self> {
+    pub fn new(
+        src_paths: Rc<RefCell<HashSet<path::PathBuf>>>,
+        config: Rc<RefCell<Config>>,
+    ) -> Box<Self> {
         Box::new(Self {
-            src_exts: Self::get_extensions(lang),
+            config,
+            src_exts: Self::get_extensions(Lang::C),
             src_paths,
             old_src_paths: None,
         })
@@ -67,6 +72,8 @@ impl Action for GenSrcPaths {
     fn execute(&mut self) -> Result<()> {
         println!("=> Fetching Source Files...");
         self.old_src_paths = Some(self.src_paths.borrow().clone());
+
+        self.src_exts = Self::get_extensions(self.config.borrow().lang);
 
         *self.src_paths.borrow_mut() = self
             .get_file_paths()?

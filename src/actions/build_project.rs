@@ -32,10 +32,7 @@ impl BuildProject {
 
         action_chain
             .add(ReadConfig::new(Rc::clone(&config)))
-            .add(GenSrcPaths::new(
-                Rc::clone(&src_paths),
-                config.borrow().lang,
-            ))
+            .add(GenSrcPaths::new(Rc::clone(&src_paths), Rc::clone(&config)))
             .add(GenDepGraph::new(
                 Rc::clone(&src_paths),
                 Rc::clone(&dependency_graph),
